@@ -1,0 +1,86 @@
+extends ../../page
+
+block content
+    article.card-body
+        h4.card-title.mb-4.mt-1 문제 생성
+        form#form(name='question_create' action='/question/create' method='POST' enctype="multipart/form-data")
+            // 제목
+            .form-group
+                label(for='title') 제목
+                input#title.form-control(name='title' type='title' placeholder='title')
+            // 시간/메모리 제한
+            .form-group.row
+                .col-6
+                    label(for='time_limit') 시간 제한
+                    input#time_limit.form-control(name='time_limit')
+                .col-6
+                    label(for='memory_limit') 메모리 제한
+                    input#memory_limit.form-control(name='memory_limit')
+            // 태그
+            .form-group
+                label(for='tags') 태그
+                input#tags.form-control(name='tags' placeholder='태그를 쉼표(,)로 구분하여 입력')
+            // 언어
+            .form-group
+                label(for='languages') 언어 
+                br
+                input(type='checkbox' name='C')
+                |  C &nbsp;
+                input(type='checkbox' name='C++')
+                |  C++ &nbsp;
+                input(type='checkbox' name='Java')
+                |  Java &nbsp;
+                input(type='checkbox' name='Python2')
+                |  Python2 &nbsp;
+                input(type='checkbox' name='Python3')
+                |  Python3 &nbsp;
+                //input#tags.form-control(name='languages' placeholder='사용 가능한 언어를 쉼표(,)로 구분하여 입력')
+            // 문제 설명
+            .form-group
+                label(for='description') 문제 설명
+                textarea#description.form-control(name='description' type='description')
+            // 입력 조건
+            .form-group
+                label(for='input_description') 입력 조건
+                textarea#input-description.form-control(name='input_description' type='input_description')
+            // 출력 조건
+            .form-group
+                label(for='output_description') 출력 조건
+                textarea#output-description.form-control(name='output_description' type='output_description')
+            .form-group#samples
+            .form-group#test_case
+                .row
+                    .col-6
+                        label(for='test_case_file') 테스트케이스 zip 파일 
+                        .custom-file
+                            input#test_case_file.form-control.custom-file-input(type="file", name='test_case_file')
+                            label.custom-file-label(for='test_case_file') 1.zip
+                    .col-6
+                        label(for='test_case_file') 점수
+                        input#test_case_score.form-control(type="number", name="test_case_score", value=1, min=1, max=100)
+
+
+            //share_submission
+            .form-group
+                input(type='checkbox' checked name='share_submission')
+                |  share_submission &nbsp;
+                input(type='checkbox' checked name='visible')
+                |  visible &nbsp;
+            
+            //예제 추가 / 취소/제출하기
+            .form-group.row
+                .col-6
+                    //onclick="alert(\"준비중입니다\")"
+                    button#add-sample.btn.btn-secondary.m-auto(type='button' onclick='add_sample()') 
+                        | 예제 추가
+                    //- button#add-sample.btn.btn-secondary.m-auto(type='button' onclick='add_test_case()') 
+                    //-     | 테스트케이스 추가
+                .col-6.text-right
+                    button.btn.btn-warning.m-auto(type='button' onclick="location.href='/question'")
+                        | 취소
+                    |&nbsp;
+                    button#join-submit.btn.btn-primary.m-auto(type='submit')
+                        | 문제 추가
+        
+    script(type='text/javascript' src='KAUOnlineJudge.js')
+        //document.createElement + document.querySelectAll 써보기

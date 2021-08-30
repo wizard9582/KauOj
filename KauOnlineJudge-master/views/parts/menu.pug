@@ -1,0 +1,51 @@
+// 상단바 시작
+nav.navbar.navbar-expand-lg.navbar-light.bg-light.md-2
+    a.navbar-brand(href='/') 항공대 OJ
+    // 메뉴 드롭다운 버튼
+    button.navbar-toggler(
+        type='button' 
+        data-toggle='collapse' 
+        data-target='#navbarSupportedContent' 
+        aria-controls='navbarSupportedContent' 
+        aria-expanded='false' 
+        aria-label='Toggle navigation'
+    )
+        span.navbar-toggler-icon
+    // 메뉴 시작
+    #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+            li.nav-item.dropdown
+                a#navbarDropdown.nav-link.dropdown-toggle(
+                    href='#' 
+                    role='button' 
+                    data-toggle='dropdown' 
+                    aria-haspopup='true' 
+                    aria-expanded='false'
+                ) 문제
+                .dropdown-menu(aria-labelledby='navbarDropdown')
+                    a.dropdown-item(href='/question') 문제
+                    a.dropdown-item(href='/question/recommend') 추천 문제
+                    //a.dropdown-item(href='#') 태그별 문제
+                    //.dropdown-divider
+            li.nav-item
+                a.nav-link(href=`/user`) #{(user == undefined) ? '내 정보' : user}
+            li.nav-item
+                a.nav-link(href='#') 랭킹
+
+        //세션이 없을 때 누르면 로그인,
+          　　　 있을 때 누르면 로그아웃
+        -if (user == undefined)
+            a.mr-1(href='/login') 로그인
+        -else
+            a.mr-1(href='/logout') 로그아웃
+
+        // 검색창
+        form.form-inline.my-2.my-lg-0
+            input.form-control.mr-sm-2(
+                type='search' 
+                placeholder='검색' 
+                aria-label='Search'
+            )
+            button.btn.btn-outline-primary.my-2.my-sm-0(type='submit')
+                a(href='#')
+                    i.fa.fa-search

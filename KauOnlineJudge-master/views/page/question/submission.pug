@@ -1,0 +1,46 @@
+extends ../../page
+
+block content
+    table.table.table-striped.table-hover
+        thead
+            tr
+                th 제출 id
+                th 사용자 이름
+                th 문제 id
+                th 사용 언어
+                th 결과
+        tbody
+            each result in results
+                tr
+                    td
+                        =result.id
+                        //- a(href=`/question/submission/${result.id}`) #{result.id}
+                    td
+                        a(href=`/user/${result.username}`) #{result.username}
+                    td
+                        a(href=`/question/${result.problem}`) #{result.problem}
+                    td= result.language
+                    td
+                        case result.result
+                            when -2
+                                p COMPILE_ERROR
+                            when -1
+                                p WRONG_ANSWER
+                            when 0
+                                p ACCEPTED
+                            when 1
+                                p CPU_TIME_LIMIT_EXCEEDED
+                            when 2
+                                p REAL_TIME_LIMIT_EXCEEDED
+                            when 3
+                                p MEMORY_LIMIT_EXCEEDED
+                            when 4
+                                p RUNTIME_ERROR
+                            when 5
+                                p SYSTEM_ERROR
+                            when 6
+                                p PENDING
+                            when 7
+                                p JUDGING
+                            when 8
+                                p PARTIALLY_ACCEPTED

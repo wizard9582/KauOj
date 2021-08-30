@@ -1,0 +1,60 @@
+extends ../page
+
+block content
+    h1= id
+    hr(style="margin-bottom: 2em;")
+    -if (Object.keys(list).length === 0) 
+        center
+            h1.m-2 문제풀이 정보가 존재하지 않습니다! <br>
+                -if(user == id)
+                    a.m-2(href='/question') 문제 풀러 가기
+    -else
+        .row
+            .col-6
+                canvas#chart
+            .col-6
+                -for (item in list)
+                    .mb-4
+                        h3= item
+                        -var item = list[item]
+                        hr
+                        -for (var i in item)
+                            a(href=`/question/${item[i]}`)= item[i]
+                            | &nbsp;
+                    
+
+    // 임시로 생성한 차트
+    script(type="text/javascript" src='https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js')
+    script.
+        //백엔드에서 받아온 사용자의 문제풀이 정보
+        let list = !{JSON.stringify(list)}
+
+        //문제풀이 정보를 차트로 도식화하는 코드
+        var myChart = new Chart(document.getElementById('chart').getContext('2d'), { 
+            type: 'doughnut',
+            data: {
+                //차트의 각 항목 label
+                labels: ['정답', '오답'],
+                datasets: [{
+                    //차트의 각 항목 값
+                    data: [list['정답'].length, list['오답'].length],
+
+                    //차트에서 각 항목을 표시할 색
+                    backgroundColor: [
+                        'rgba(0,  187, 0, 0.2)',
+                        'rgba(238,  0, 0, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(0,  187, 0, 1)',
+                        'rgba(238,  0, 0, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'right'
+                }
+            }
+        });

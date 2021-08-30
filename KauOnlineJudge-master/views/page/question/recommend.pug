@@ -1,0 +1,17 @@
+extends ../../page
+
+block content
+    include ../../mixin
+
+
+    table.table.table-striped.table-hover
+        each q in q_list
+            tr.invert(height=`${100/len}%`)
+                td.invert= q._id
+                td.invert
+                    a(href=`/question/${q._id}`) #{q.title}
+                td.invert
+                    +tags(q.tags)
+                td.invert 
+                    each lan in q.languages
+                        =lan + ' '  

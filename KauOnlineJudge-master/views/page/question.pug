@@ -1,0 +1,109 @@
+extends ../page
+
+block content
+    include ../mixin
+
+    style(type='text/css').
+        p {
+            text-indent: 10px;
+            margin-bottom: 3px;
+        }
+
+    h1= q.title
+        //button.btn.btn-link(type='button' onclick="location.href='${my_url}/question_solver?num=${num}")
+
+    table.table.table-striped
+        thead
+            tr
+                th 시간 제한
+                th 메모리 제한
+                th 태그
+                th 사용 가능한 언어
+        tbody
+            tr 
+                td= q.time_limit + ' (ms)'
+                td= q.memory_limit + ' (Mb)'
+                td
+                    +tags(q.tags)
+                td 
+                    each lan in q.languages
+                        =lan + ' '
+    #problem_info
+        .m_b#problem_explanation
+            h3 문제 설명
+            each line in q.description.split('\n')
+                p= line
+            
+        .m_b#problem_input
+            h3 입력 조건
+            each line in q.input_description.split('\n')
+                p= line
+            
+        .m_b#problem_output
+            h3 출력 조건
+            each line in q.output_description.split('\n')
+                p= line
+            
+        br
+
+        each s, i in q.samples
+            .row
+                .col-md-6
+                    .headline
+                        h3 예제 입력 #{i + 1}
+                            button.btn.btn-link(
+                                type='button' 
+                                onclick=`copyToClipboard(\'input_${i + 1}\')`
+                            ) 복사
+                    pre.sampledata(id=`input_${i + 1}`)= s.input
+                .col-md-6
+                    .headline
+                        h3 예제 출력 #{i + 1}
+                            button.btn.btn-link(
+                                type='button' 
+                                onclick=`copyToClipboard(\'output_${i + 1}\')`
+                            ) 복사
+                    pre.sampledata(id=`output_${i + 1}`)= s.output
+    
+    // 문제의 답 제출
+    
+    hr
+    form#form(name='question' action=`/question/submission/${q._id}` method='POST')
+        - var attributes = {}
+        - if (user === undefined) attributes.disabled = 'disabled'
+        label(for='language') 언어
+        select.m_b.form-control#lang(name='language')&attributes(attributes)
+            each lan in q.languages
+                option(value=lan)= lan
+
+        label(for='code') 소스 코드
+        textarea#code.form-control.m_b(
+            name='code'
+            rows='15' 
+            placeholder='여기에 코드를 입력해주세요' 
+        )&attributes(attributes)
+        input.form-control.hide(
+            name='problem_id'
+            value=`${q.id}`
+        )
+        button#join-submit.btn.btn-primary.float-right.m-2(type='submit')&attributes(attributes) 제출#{user !== undefined ? '' : "하려면 로그인을 해주세요"}
+
+        -if (owner === true)
+            button#update.btn.btn-primary.float-right.m-2(type='button' onclick=`location.href='/question/update/${q.id}'`)&attributes(attributes) 문제 수정
+            div#delete-check-button.btn.btn-danger.float-right.m-2(onclick="delete_modal()") 문제 삭제
+            
+            #delete-modal.modal(tabindex='-1' role='dialog' style='display: none;justify-content: center;align-items: center;')
+                .modal-dialog(role='document')
+                    .modal-content
+                        .modal-header
+                            h5.modal-title 문제 삭제
+                            button.close(type='button' data-dismiss='modal' aria-label='Close' onclick='delete_modal()')
+                                span(aria-hidden='true') &times;
+                        .modal-body
+                            p 정말로 문제를 삭제하겠습니까?
+                        .modal-footer
+                            button.btn.btn-danger(type='submit' name='delete' formaction=`/question/delete/${q.id}`) 문제 삭제
+                            button.btn.btn-secondary(type='button' data-dismiss='modal' onclick='delete_modal()') 취소 
+                            
+    script(type='text/javascript' src='KAUOnlineJudge.js')
+    

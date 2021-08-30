@@ -1,0 +1,16 @@
+doctype html
+head
+    include parts/head
+body
+    //페이지에 표시할 메세지가 있다면
+    script.
+        //받은 메세지를 json 형태로 바꾼 뒤 각 key에 대해 메세지를 alert로 출력
+        let flashJS = [!{JSON.stringify(flash)}]
+        for (key in flashJS[0]) alert(flashJS[key])
+    //menu
+    include parts/menu
+    br
+    .container
+        block content
+    
+    include parts/foot

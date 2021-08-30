@@ -1,0 +1,13 @@
+mixin tags(tags)
+    each tag in tags
+        -var tag_class = ''
+        case tag
+            when "쉬움": -tag_class = "easy"
+            when "중간": -tag_class = "medium"
+            when "어려움": -tag_class = "hard"
+            when "정답": -tag_class = "correct"
+            when "오답": -tag_class = "wrong"
+            default: -tag_class = "tag"
+
+        a(class=`${tag_class}` href=`/question?tag=${tag}`) #{tag}
+        | &nbsp;

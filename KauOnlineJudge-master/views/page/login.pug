@@ -1,0 +1,30 @@
+extends ../page
+
+block content
+    article.card-body
+        a.float-right.btn.btn-outline-primary(href='/register') 회원가입
+        h4.card-title.mb-4.mt-1 로그인
+        form(name='login' action='/login' method='POST')
+            // 아이디 / 이메일
+            .form-group
+                label(for='username') 아이디 / 이메일
+                input.form-control(name='username' type='username' placeholder='아이디 / 이메일')
+            //.form-group
+                .checkbox
+                  label
+                    input(type='checkbox')
+                    | 아이디 / 이메일 저장
+            // 비밀번호
+            .form-group
+                // a.float-right(href='#')비밀번호 찾기
+                label(for='password') 비밀번호
+                input.form-control(name='password' type='password' placeholder='******')
+            //.form-group
+                .checkbox
+                    label
+                        input(type='checkbox')
+                        | 비밀번호 저장
+            br
+            // 제출하기
+            .form-group
+                button.btn.btn-primary.btn-block.text-white(type='submit' role='button') 제출

@@ -1,0 +1,79 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+/*전체 영역*/
+* {
+    font-family: 'Nanum Gothic';
+}
+
+.m_b {
+    margin-bottom: 30px;
+}
+.hide {
+    display: none;
+}
+.text-white {
+    color: white;
+}
+
+input[type=checkbox] {
+    width:12px;
+    height:12px;
+}
+
+footer {
+    clear: both;
+    background-color: #eeeeee;
+    color: #aaaaaa;
+    text-align: center;
+}
+footer a,
+footer a:hover {
+    color: #aaaaaa;
+}
+
+a.btn {
+    color: #aaaaaa;
+}
+
+/*문제 페이지 영역*/
+div#problem_table table {
+    font-size: small;
+}
+
+/*문제 태그 영역*/
+a.easy,
+a.easy:hover {
+    background-color: #00bb00;
+    color: white;
+}
+a.medium,
+a.medium:hover {
+    background-color: #eeee00;
+    color: black;
+}
+a.hard,
+a.hard:hover {
+    background-color: #bb0000;
+    color: white;
+}
+a.correct,
+a.correct:hover {
+    color: #00bb00;
+}
+a.wrong,
+a.wrong:hover {
+    color: #ee0000;
+}
+a.tag,
+a.tag:hover {
+    background-color: #aaaaaa;
+    color:white;
+}
+
+tr.invert {
+    display: block; 
+    float: left; 
+}
+th.invert,
+td.invert {
+    display: block; 
+}

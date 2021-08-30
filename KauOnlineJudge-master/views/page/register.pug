@@ -1,0 +1,42 @@
+extends ../page
+
+block content
+    article.card-body
+        h4.card-title.mb-4.mt-1 회원가입
+        form(name='register' action='/register' method='POST')
+            // 버그 방지용 빈 input
+            .form-group
+                label(for='username') 아이디
+                input#username.form-control(name='username' type='username' placeholder='username')
+            // 이메일
+            .form-group
+                label(for='email') 이메일
+                input#email.form-control(name='email' type='email' placeholder='example@example.com')
+            // 비밀번호, 비밀번호 확인
+            .form-group.row
+                .col-6
+                    label(for='password') 비밀번호
+                    input#password.form-control(name='password' type='password' placeholder='******')
+                .col-6
+                    label(for='password_check') 비밀번호 확인
+                    input#password_check.form-control(name='password_check' type='password' placeholder='******')
+            .row
+                // 약관 동의
+                .form-group.col-6
+                    label 약관 동의
+                    div(data-toggle='buttons')
+                        label.btn.btn-primary.active
+                            input#agree(name='agree' type='checkbox' autocomplete='off')
+                        a(href='#') 이용약관
+                        | 에 동의합니다.
+                // 제출하기
+                .form-group.col-6.text-right
+                    label 　
+                    div
+                        button#join-submit.btn.btn-primary.m-auto(type='submit')
+                            | 회원가입
+                            i.fa.fa-check.spaceLeft
+                        |&nbsp;
+                        button.btn.btn-warning.m-auto(type='button')
+                            | 가입취소
+                            i.fa.fa-times.spaceLeft
